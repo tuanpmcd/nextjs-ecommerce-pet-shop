@@ -38,7 +38,7 @@ const Register = () => {
       dispatch({ type: 'NOTIFY', payload: { loading: false } })
       return toast.info(res.err)
     }
-    
+
     dispatch({ type: 'NOTIFY', payload: { loading: false } })
     dispatch({
       type: "AUTH",
@@ -63,45 +63,50 @@ const Register = () => {
   }, [auth])
 
   return (
-    <div className="d-flex justify-content-center p-2 w-100"
+    <div className="container"
       style={{ height: "calc(100vh - 150px)" }}>
       <Head>
         <title>Register Page</title>
       </Head>
+      <div className="row">
+        <div className="col-lg-4 mx-auto">
+          <form onSubmit={handleSubmit}>
 
-      <form className="mx-auto my-4" style={{ maxWidth: '500px' }} onSubmit={handleSubmit}>
-        <h4 className="mb-3">Register</h4>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" className="form-control" id="name"
-            name="name" value={name} onChange={handleChangeInput} />
+            <h3 className="mb-3">Register</h3>
+
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name"
+                name="name" value={name} onChange={handleChangeInput} />
+            </div>
+
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="exampleInputEmail1">Email address</label>
+              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                name="email" value={email} onChange={handleChangeInput} />
+              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="exampleInputPassword1">Password</label>
+              <input type="password" className="form-control" id="exampleInputPassword1"
+                name="password" value={password} onChange={handleChangeInput} />
+            </div>
+
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="exampleInputPassword2">Confirm Password</label>
+              <input type="password" className="form-control" id="exampleInputPassword2"
+                name="cf_password" value={cf_password} onChange={handleChangeInput} />
+            </div>
+
+            <button type="submit" className="btn btn-info w-100">Register</button>
+
+            <p className="my-2">
+              Already have an account? <Link href="/signin"><a style={{ color: 'crimson' }}>Login Now</a></Link>
+            </p>
+          </form>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            name="email" value={email} onChange={handleChangeInput} />
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1"
-            name="password" value={password} onChange={handleChangeInput} />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword2">Confirm Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword2"
-            name="cf_password" value={cf_password} onChange={handleChangeInput} />
-        </div>
-
-        <button type="submit" className="btn btn-info w-100 my-3">Register</button>
-
-        <p className="my-2">
-          Already have an account? <Link href="/signin"><a style={{ color: 'crimson' }}>Login Now</a></Link>
-        </p>
-      </form>
+      </div>
     </div>
   )
 }

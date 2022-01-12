@@ -52,54 +52,59 @@ const Login = () => {
   }, [auth]);
 
   return (
-    <div className="d-flex justify-content-center p-2 w-100"
+    <div className="container"
       style={{ height: "calc(100vh - 150px)" }}
     >
       <Head>
         <title>Log in</title>
       </Head>
 
-      <form
-        className="mx-auto"
-        style={{ maxWidth: "350px" }}
-        onSubmit={handleSubmit}
-      >
-        <h4 className="mb-3">Sign in</h4>
-        <div className="form-group mb-3">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="email"
-            value={email}
-            onChange={handleChangeInput}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            name="password"
-            value={password}
-            onChange={handleChangeInput}
-          />
-        </div>
+      <div className="row">
+        <div className="col-lg-4 mx-auto">
+          <form
+            onSubmit={handleSubmit}
+          >
+            <h3 className="mb-3">Sign in</h3>
 
-        <button type="submit" className="btn btn-info w-100 my-3">
-          Login
-        </button>
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="exampleInputEmail1">Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="email"
+                value={email}
+                onChange={handleChangeInput}
+              />
+            </div>
 
-        <p className="my-2">
-          You don't have an account?{" "}
-          <Link href="/register">
-            <a style={{ color: "crimson" }}>Register Now</a>
-          </Link>
-        </p>
-      </form>
+            <div className="form-group mb-3">
+              <label className="form-label" htmlFor="exampleInputPassword1">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="exampleInputPassword1"
+                name="password"
+                value={password}
+                onChange={handleChangeInput}
+              />
+            </div>
+
+            <button type="submit" className="btn btn-info w-100">
+              Login
+            </button>
+
+            <p className="my-2">
+              You don't have an account?{" "}
+              <Link href="/register">
+                <a style={{ color: "crimson" }}>Register Now</a>
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+
     </div>
   );
 };
