@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    BASE_URL: "http://localhost:3000",
+    BASE_URL: "https://tuanpham-nextjs-ecommerce.herokuapp.com/",
     MONGODB_URL:
       "mongodb+srv://pmt:pmt123@cluster0.2tpn9.mongodb.net/nextjs_ecommerce?retryWrites=true&w=majority",
     ACCESS_TOKEN_SECRET: "h7NK;jM++qUt+/(:_pqB6sp@WLns6VgCTQ_sxgxNe'(?mu5A~X",
