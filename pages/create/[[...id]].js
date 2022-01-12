@@ -140,7 +140,7 @@ const ProductsManager = () => {
             />
             <button
               type="button"
-              class="btn btn-info"
+              className="btn btn-info"
               htmlFor="inputGroupFile02"
             >
               Upload
@@ -173,7 +173,7 @@ const ProductsManager = () => {
 
           <div className="row mb-3">
             <div className="col-md-6 mb-3">
-              <label class="form-label" htmlFor="price">Price</label>
+              <label className="form-label" htmlFor="price">Price</label>
               <input
                 type="number"
                 name="price"
@@ -185,7 +185,7 @@ const ProductsManager = () => {
             </div>
 
             <div className="col-md-6 mb-3">
-              <label class="form-label" htmlFor="price">In Stock</label>
+              <label className="form-label" htmlFor="price">In Stock</label>
               <input
                 type="number"
                 name="inStock"

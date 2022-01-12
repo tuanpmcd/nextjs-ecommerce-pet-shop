@@ -57,36 +57,42 @@ const Cart = () => {
   }, [callback]);
 
   const handlePayment = async () => {
-    if (!address || !mobile) return toast.info("Please add your address and mobile")
+    if (auth.user) {
+      if (!address || !mobile) return toast.info("Please add your address and mobile")
 
-    let newCart = [];
-    for (const item of cart) {
-      const res = await getData(`product/${item._id}`);
-      if (res.product.inStock - item.quantity >= 0) {
-        newCart.push(item);
+      let newCart = [];
+      for (const item of cart) {
+        const res = await getData(`product/${item._id}`);
+        if (res.product.inStock - item.quantity >= 0) {
+          newCart.push(item);
+        }
       }
+
+      if (newCart.length < cart.length) {
+        setCallback(!callback); //re-update instock in DB
+        return toast.info("The product is out of stock or the quantity is insufficient")
+      }
+
+      dispatch({ type: "NOTIFY", payload: { loading: true } });
+
+      postData("order", { address, mobile, cart, total }, auth.token).then(
+        (res) => {
+          if (res.err) return toast.info(res.err)
+          dispatch({ type: "ADD_CART", payload: [] });
+          const newOrder = {
+            ...res.newOrder,
+            user: auth.user,
+          };
+          dispatch({ type: "ADD_ORDERS", payload: [...orders, newOrder] });
+          dispatch({ type: "NOTIFY", payload: { loading: false } });
+          return router.push(`/order/${res.newOrder._id}`);
+        }
+      );
+    } else {
+      toast.info("Please login to continue buying")
+       return router.push("/signin")
     }
 
-    if (newCart.length < cart.length) {
-      setCallback(!callback); //re-update instock in DB
-      return toast.info("The product is out of stock or the quantity is insufficient")
-    }
-
-    dispatch({ type: "NOTIFY", payload: { loading: true } });
-
-    postData("order", { address, mobile, cart, total }, auth.token).then(
-      (res) => {
-        if (res.err) return toast.info(res.err)
-        dispatch({ type: "ADD_CART", payload: [] });
-        const newOrder = {
-          ...res.newOrder,
-          user: auth.user,
-        };
-        dispatch({ type: "ADD_ORDERS", payload: [...orders, newOrder] });
-        dispatch({ type: "NOTIFY", payload: { loading: false } });
-        return router.push(`/order/${res.newOrder._id}`);
-      }
-    );
   };
 
   if (cart.length === 0)

@@ -28,7 +28,7 @@ export const DataProvider = ({ children }) => {
     }
 
     getData('categories').then(res => {
-      if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } })
+      if (res.err) return toast.error(res.err)
 
       dispatch({
         type: "ADD_CATEGORIES",
