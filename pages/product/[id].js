@@ -17,7 +17,7 @@ const DetailProduct = (props) => {
 
   const handleBuy = () => {
     dispatch(addToCart(product, cart))
-    if(product.inStock === 0) return toast.info("This product is out of stock")
+    if (product.inStock === 0) return toast.info("This product is out of stock")
     return router.push("/cart");
   }
 
@@ -72,7 +72,7 @@ const DetailProduct = (props) => {
 
         <button
           type="button"
-          className="btn btn-info my-3"
+          className="btn btn-info my-3 text-white"
           onClick={handleBuy}
         >
           + Add to cart

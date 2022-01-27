@@ -86,13 +86,13 @@ const Modal = () => {
           </div>
           <div className="modal-footer">
 
-            <button type="button" className="btn btn-dark" data-bs-dismiss="modal">
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
               Cancel
             </button>
 
             <button
               type="button"
-              className="btn btn-info px-4"
+              className="btn btn-info px-4 text-white"
               data-bs-dismiss="modal"
               onClick={handleSubmit}
             >

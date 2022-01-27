@@ -91,7 +91,7 @@ const Login = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-info w-100">
+            <button type="submit" className="btn btn-info w-100 text-white">
               Login
             </button>
 
