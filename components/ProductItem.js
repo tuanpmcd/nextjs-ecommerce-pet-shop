@@ -70,7 +70,7 @@ const ProductItem = ({ product, handleCheck }) => {
   };
 
   return (
-    <div className="card mx-1 mb-1 p-3 bg-light">
+    <div className="card mx-1 mb-1 p-2 bg-light">
       {auth.user && auth.user.role === "admin" && (
         <input
           type="checkbox"
@@ -82,7 +82,7 @@ const ProductItem = ({ product, handleCheck }) => {
       )}
 
       <img
-        className="card-img-top p-2"
+        className="card-img-top"
         src={product.images[0].url}
         alt=""
       />

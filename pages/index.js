@@ -65,56 +65,50 @@ const Home = (props) => {
       <Head>
         <title>Home Page</title>
       </Head>
-      <div className="home container p-0">
-        <div className="row mx-auto">
-          <div className="home-left col-md-3">
-            <Filter state={state} />
+      <div className="home container mb-5">
+          <div className='mb-4 text-center'>
+            <i className="fas fa-dog me-2 fs-3 text-info"></i>
+            <i className="fas fa-cat me-2 fs-3 text-info"></i>
+            <i className="fas fa-crow me-2 fs-3 text-info"></i>
+            <i className="fas fa-fish me-2 fs-3 text-info"></i>
+            <h1 className='mt-3'>
+              Welcome to our pet store
+            </h1>
           </div>
-          <div className="col-md-9 ps-lg-5">
-            <div className='mb-4 text-center'>
-              <i className="fas fa-dog me-2 fs-3 text-info"></i>
-              <i className="fas fa-cat me-2 fs-3 text-info"></i>
-              <i className="fas fa-crow me-2 fs-3 text-info"></i>
-              <i className="fas fa-fish me-2 fs-3 text-info"></i>
-              <h4 className='mt-3'>
-              Welcome to our pet store, find the pet you want:
-              </h4>
+          <Filter state={state} />
+          {
+            auth.user && auth.user.role === 'admin' &&
+            <div className="d-flex align-items-center mb-4">
+              <input type="checkbox" checked={isCheck} onChange={handleCheckALL}
+                style={{ width: '25px', height: '25px' }} />
+
+              <button className="btn btn-info btn-sm mx-2"
+                data-toggle="modal" data-target="#exampleModal"
+                onClick={handleDeleteAll}>
+                Delete All
+              </button>
             </div>
+          }
+          <div className="products">
             {
-              auth.user && auth.user.role === 'admin' &&
-              <div className="d-flex align-items-center mb-4">
-                <input type="checkbox" checked={isCheck} onChange={handleCheckALL}
-                  style={{ width: '25px', height: '25px' }} />
-
-                <button className="btn btn-info btn-sm mx-2"
-                  data-toggle="modal" data-target="#exampleModal"
-                  onClick={handleDeleteAll}>
-                  Delete All
-                </button>
-              </div>
+              products.length === 0
+                ? <p>No Products</p>
+                : products.map(product => (
+                  <ProductItem key={product._id} product={product} handleCheck={handleCheck} />
+                ))
             }
-
-            <div className="products">
-              {
-                products.length === 0
-                  ? <h4>No Products</h4>
-                  : products.map(product => (
-                    <ProductItem key={product._id} product={product} handleCheck={handleCheck} />
-                  ))
-              }
-            </div>
-
-            {
-              props.result < page * 9 ? ""
-                : <button className="btn btn-outline-dark btn-sm my-4 m-auto d-block"
-                  onClick={handleLoadmore}>
-                  Load more
-                </button>
-            }
-
           </div>
+          {
+            props.result < page * 8 ? ""
+              : <button
+                type='button'
+                className="btn btn-outline-dark btn-sm my-4 mx-auto d-block"
+                style={{ width: "100px" }}
+                onClick={handleLoadmore}>
+                Load more
+              </button>
+          }
         </div>
-      </div>
     </>
   )
 }
@@ -126,7 +120,7 @@ export async function getServerSideProps({ query }) {
   const search = query.search || 'all'
 
   const res = await getData(
-    `product?limit=${page * 9}&category=${category}&sort=${sort}&title=${search}`
+    `product?limit=${page * 8}&category=${category}&sort=${sort}&title=${search}`
   )
   return {
     props: {

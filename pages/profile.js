@@ -81,107 +81,108 @@ const Profile = () => {
         <title>Profile</title>
       </Head>
 
-      <div className="container row text-secondary mx-auto">
-        <div className="col-md-4 mb-4">
-          <h3 className="text-uppercase">
-            {auth.user.role === 'user' ? 'User Profile' : 'Admin Profile'}
-          </h3>
+      <div className="container text-secondary mx-auto">
+        <div className="row">
+          <div className="col-md-4 mb-4">
+            <h3 className="text-uppercase text-center">
+              {auth.user.role === 'user' ? 'User Profile' : 'Admin Profile'}
+            </h3>
 
-          <div className="avatar">
-            <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
-              alt="" />
-            <span>
-              <i className="fas fa-camera"></i>
-              <p>Change</p>
-              <input type="file" name="file" id="file_up"
-                accept="image/*" onChange={changeAvatar} />
-            </span>
+            <div className="avatar">
+              <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
+                alt="" />
+              <span>
+                <i className="fas fa-camera"></i>
+                <p>Change</p>
+                <input type="file" name="file" id="file_up"
+                  accept="image/*" onChange={changeAvatar} />
+              </span>
+            </div>
+
+            <div className="form-group my-2">
+              <label htmlFor="name" className="form-label">Name</label>
+              <input type="text" name="name" value={name} className="form-control"
+                placeholder="Your name" onChange={handleChange} />
+            </div>
+
+            <div className="form-group my-2">
+              <label htmlFor="email" className="form-label">Email</label>
+              <input type="text" name="email" defaultValue={auth.user.email}
+                className="form-control" disabled={true} />
+            </div>
+
+            <div className="form-group my-2">
+              <label htmlFor="password" className="form-label">New Password</label>
+              <input type="password" name="password" value={password} className="form-control"
+                placeholder="" onChange={handleChange} />
+            </div>
+
+            <div className="form-group my-2">
+              <label htmlFor="cf_password" className="form-label">Confirm New Password</label>
+              <input type="password" name="cf_password" value={cf_password} className="form-control"
+                placeholder="" onChange={handleChange} />
+            </div>
+
+            <button className="btn btn-info text-white my-2" disabled={notify.loading}
+              onClick={handleUpdateProfile}>
+              Update
+            </button>
           </div>
+          <div className="col-md-8">
+            <h3 className="text-uppercase">Orders</h3>
 
-          <div className="form-group my-2">
-            <label htmlFor="name" className="form-label">Name</label>
-            <input type="text" name="name" value={name} className="form-control"
-              placeholder="Your name" onChange={handleChange} />
-          </div>
+            <div className="my-3 table-responsive">
+              <table className="table table-bordered table-striped table-hover w-100 text-uppercase"
+                style={{ minWidth: '600px', cursor: 'pointer' }}>
+                <thead className="bg-light font-weight-bold">
+                  <tr>
+                    <td className="p-2">id</td>
+                    <td className="p-2">date</td>
+                    <td className="p-2">total</td>
+                    <td className="p-2">delivered</td>
+                    <td className="p-2">paid</td>
+                  </tr>
+                </thead>
 
-          <div className="form-group my-2">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input type="text" name="email" defaultValue={auth.user.email}
-              className="form-control" disabled={true} />
-          </div>
+                <tbody>
+                  {
+                    orders.map(order => (
+                      <tr key={order._id}>
 
-          <div className="form-group my-2">
-            <label htmlFor="password" className="form-label">New Password</label>
-            <input type="password" name="password" value={password} className="form-control"
-              placeholder="" onChange={handleChange} />
-          </div>
+                        <td className="p-2">
+                          <Link href={`/order/${order._id}`}>
+                            <a className='text-decoration-underline'>{order._id}</a>
+                          </Link>
+                        </td>
 
-          <div className="form-group my-2">
-            <label htmlFor="cf_password" className="form-label">Confirm New Password</label>
-            <input type="password" name="cf_password" value={cf_password} className="form-control"
-              placeholder="" onChange={handleChange} />
-          </div>
+                        <td className="p-2">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </td>
 
-          <button className="btn btn-info my-2" disabled={notify.loading}
-            onClick={handleUpdateProfile}>
-            Update
-          </button>
-        </div>
+                        <td className="p-2">${order.total}</td>
 
-        <div className="col-md-8">
-          <h3 className="text-uppercase">Orders</h3>
+                        <td className="p-2">
+                          {
+                            order.delivered
+                              ? <i className="fas fa-check text-success"></i>
+                              : <i className="fas fa-times text-danger"></i>
+                          }
+                        </td>
 
-          <div className="my-3 table-responsive">
-            <table className="table table-bordered table-striped table-hover w-100 text-uppercase"
-              style={{ minWidth: '600px', cursor: 'pointer' }}>
-              <thead className="bg-light font-weight-bold">
-                <tr>
-                  <td className="p-2">id</td>
-                  <td className="p-2">date</td>
-                  <td className="p-2">total</td>
-                  <td className="p-2">delivered</td>
-                  <td className="p-2">paid</td>
-                </tr>
-              </thead>
+                        <td className="p-2">
+                          {
+                            order.paid
+                              ? <i className="fas fa-check text-success"></i>
+                              : <i className="fas fa-times text-danger"></i>
+                          }
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
 
-              <tbody>
-                {
-                  orders.map(order => (
-                    <tr key={order._id}>
-
-                      <td className="p-2">
-                        <Link href={`/order/${order._id}`}>
-                          <a className='text-decoration-underline'>{order._id}</a>
-                        </Link>
-                      </td>
-
-                      <td className="p-2">
-                        {new Date(order.createdAt).toLocaleDateString()}
-                      </td>
-
-                      <td className="p-2">${order.total}</td>
-
-                      <td className="p-2">
-                        {
-                          order.delivered
-                            ? <i className="fas fa-check text-success"></i>
-                            : <i className="fas fa-times text-danger"></i>
-                        }
-                      </td>
-
-                      <td className="p-2">
-                        {
-                          order.paid
-                            ? <i className="fas fa-check text-success"></i>
-                            : <i className="fas fa-times text-danger"></i>
-                        }
-                      </td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-
-            </table>
+              </table>
+            </div>
           </div>
         </div>
       </div>

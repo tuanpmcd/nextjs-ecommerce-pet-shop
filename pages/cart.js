@@ -101,7 +101,7 @@ const Cart = () => {
         <Head>
           <title>Cart Empty</title>
         </Head>
-        <h2>Cart Empty!</h2>
+        <h1 style={{marginTop: "200px"}}>Cart Empty!</h1>
         <Link href="/">
           <a className="text-info text-decoration-underline">Go to shopping now!</a>
         </Link>
