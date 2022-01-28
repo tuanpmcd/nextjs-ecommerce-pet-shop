@@ -117,7 +117,7 @@ export async function getServerSideProps({ query }) {
   const page = query.page || 1
   const category = query.category || 'all'
   const sort = query.sort || ''
-  const search = query.search || ''
+  const search = query.search || 'all'
 
   const res = await getData(
     `product?limit=${page * 8}&category=${category}&sort=${sort}&title=${search}`

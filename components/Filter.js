@@ -24,7 +24,7 @@ const Filter = ({ state }) => {
   }
 
   useEffect(() => {
-    filterSearch({ router, search: search ? search.toLowerCase() : '' })
+    filterSearch({ router, search: search ? search.toLowerCase() : 'all' })
   }, [search])
 
   return (
